@@ -1,0 +1,181 @@
+mysql> Create database BidvestBank;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use BidvestBank;
+Database changed
+mysql>
+mysql> CREATE TABLE BankBranch
+    -> (
+    -> branch_name varchar(20) not null primary key,
+    -> branch_city varchar(10),
+    -> branch_city varchar(10),
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> CREATE TABLE Customer
+     (
+     customer_name varchar(50) not null primary key,
+     customer_street varchar(50),
+     customer_city varchar(30)
+     );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> CREATE TABLE CustomerAccount
+     (
+     account_number varchar(20) not null primary key,
+     branch_name varchar(20),
+     balance double
+     );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> CREATE TABLE Loan
+     (
+     loan_number varchar(20) not null primary key,
+     branch_name varchar(20),
+     amount double
+     );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> CREATE TABLE Depositor
+     (
+     customer_name varchar(50),
+     account_number varchar(20) not null primary key
+     );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> CREATE TABLE Borrower
+     (
+     customer_name varchar(50),
+     loan_number varchar(20) not null primary key
+     );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> CREATE TABLE Employee
+     (
+     employee_name varchar(50) not null primary key,
+     branch_name varchar(20),
+     salary double
+     );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> INSERT INTO CustomerAccount VALUES
+    -> ('A-5324', 'Newton', 500),
+    -> ('A-5624', 'Sunnyside ', 400),
+    -> ('A-7794', 'Midrand', 900),
+    -> ('A-4467', 'Mabopane', 700),
+    -> ('A-3548', 'Midrand', 750),
+    -> ('A-3453', 'Universitas', 700),
+    -> ('A-2542', 'Mamelodi', 350);
+Query OK, 7 rows affected (0.23 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO BankBranch VALUES
+    -> ('Midrand', 'Johannesburg', 7100000) ,
+    -> ('Newtown', 'Johannesburg', 9000000),
+    -> ('Mabopane', 'Pretoria' , 400000),
+    -> ('Belgravia', 'Kimberly', 3700000),
+    -> ('Sunnyside ', 'Pretoria', 1700000),
+    -> ('Amanzimtoti', 'Durban', 300000),
+    -> ('Universitas', 'Bloemfontein', 210000),
+    -> ('Mamelodi', 'Pretoria', 8000000);
+Query OK, 8 rows affected (0.10 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Customer VALUES
+    ->
+    -> ('Modise', 'Spring', 'Gearge'),
+    -> ('Brooks', 'Senator ', 'Johannesburg'),
+    -> ('Jooste ','North ', 'Kimberty'),
+    -> ('Lombard','Sand Hiu','Netspruit'),
+    -> ('Mokwena', 'Walnut', 'Port-Elizabeth'),
+    -> ('Johnson', 'Mmabatho','Mafikeng'),
+    -> ('Zwane', 'Main','Mafikeng' ),
+    -> ('Lindsay', 'Park','George'),
+    -> ('Smith','North',  'Kimberly'),
+    -> ('Dlamini','Putnam', 'Port-Elizabeth'),
+    -> ('Williams', 'Nassau','Giyane');
+Query OK, 11 rows affected (0.09 sec)
+Records: 11  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Depositor VALUES
+    -> ('Johnson', 'A-5624'),
+    -> ('Johnson', 'A-56224'),
+    -> ('Johnson ', 'A-7794'),
+    -> ('Zwane', 'A-3546' ),
+    -> ('Lindsay', 'A-3453' ),
+    -> ('Smith', 'A-4467'),
+    -> ('Dlamini', 'A-2542');
+Query OK, 7 rows affected (0.09 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Loan VALUES
+    -> ('L-11', 'Mamelodi ', 900),
+    -> ('L-14', 'Newtown', 1500),
+    -> ('L-15', 'Sunnyside ', 1500),
+    -> ('L-16', 'Sunnyside', 1300),
+    -> ('L-17', 'Newtown' ,1000),
+    -> ('L-23', 'Universitas ', 2000),
+    -> ('L-93', 'Mabopane ', 500);
+Query OK, 7 rows affected (0.16 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Borrower VALUES
+    -> ('Modise', 'L-16'),
+    -> ('Jooste', 'L-93'),
+    -> ('Johnson', 'L-15'),
+    -> ('Jackson', 'L-14'),
+    -> ('Zwane', 'L-17'),
+    -> ('Smith', 'L-11'),
+    -> ('Smith', 'L-23 '),
+    -> ('Williams', 'L-18');
+Query OK, 8 rows affected (0.13 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Employee VALUES
+    -> ('Modise', 'Sunnyside', 1500),
+    -> ('Brown ', 'Sunnyside', 1300),
+    -> ('Gopal', 'Sunnyside ', 5300),
+    -> ('Johnson', 'Newtown', 1500),
+    -> ('Loreena', 'Newtown', 1300),
+    -> ('Peterson ', 'Newtown', 2500),
+    -> ('Rao', 'Austin', 1500),
+    -> ('Sato', 'Austin', 1600);
+Query OK, 8 rows affected (0.17 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> show tables;
+
+mysql> SELECT account_number FROM CustomerAccount WHERE balance < 700 ;
+
+mysql> SELECT customer_name FROM Customer WHERE customer_city = 'Johannesburg';
+
+mysql> SELECT employee_name FROM Employee WHERE salary > 1500 AND branch_name != 'Newtown';
+
+mysql> SELECT AVG(salary) AS avg_salary FROM Employee;
+
+
+mysql> SELECT branch_name FROM BankBranch WHERE assets=(SELECT MAX(assets) FROM BankBranch);
+
+
+mysql>
+mysql> SELECT employee_name FROM Employee Where branch_name = 'SunnySide';
+
+
+mysql> SELECT * FROM Borrower;
+
+mysql> SELECT * FROM CustomerAccount WHERE balance > 600;
+
+mysql> SELECT balance FROM CustomerAccount WHERE balance > 600;
+
+
+mysql> SELECT account_number FROM CustomerAccount WHERE balance > 600;
+
+
+mysql> SELECT account_number, balance FROM CustomerAccount WHERE balance > 600;
+
+mysql> SELECT branch_name,assets FROM BankBranch;
+
+
+
+
